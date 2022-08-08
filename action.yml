@@ -1,13 +1,18 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'SemVer to Integer'
+description: 'Converts SemVer version to integer version'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  semver:
+    description: 'SemVer version to convert'
     required: true
-    default: '1000'
+    type: string
+  zero_pad:
+    description: 'Zero pad the integer version'
+    required: false
+    type: integer
+    default: 3
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  integer:  # output will be available to future steps
+    description: 'The generated integer version'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'index.js'

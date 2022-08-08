@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "semver-to-integer",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "GitHub Action to convert SemVer version to integer version",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -11,21 +11,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/dimitribocquet/semver-to-integer.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "JavaScript",
+    "SemVer",
+    "Version"
   ],
-  "author": "",
+  "author": "Dimitri Bocquet <dimitri@manajet.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/dimitribocquet/semver-to-integer/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/dimitribocquet/semver-to-integer#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.9.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",

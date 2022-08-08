@@ -1,18 +1,20 @@
 const core = require('@actions/core');
-const wait = require('./wait');
+const converter = require('./converter');
 
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    const semver = core.getInput('semver', { required: true });
+    const zero_pad = core.getInput('zero_pad') ? parseInt(core.getInput('zero_pad')) : 3;
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    core.info(`Converting ${semver}...`);
 
-    core.setOutput('time', new Date().toTimeString());
+    const result = converter(semver, zero_pad);
+
+    core.debug(`Converted ${semver} to ${result}`);
+
+    core.setOutput('integer', result);
   } catch (error) {
     core.setFailed(error.message);
   }
