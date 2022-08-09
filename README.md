@@ -1,27 +1,25 @@
-# semver-to-integer
-
-
 # SemVer to Integer
 
-This action prints converts a SemVer version to an integer version.
+This action converts a SemVer version to an integer version.
 
 ## Inputs
 
-- semver: **Required** SemVer version to convert. Example: `2.3.4-alpha.5`.
-- zero_pad: *Optional* Zero pad you want for the integer version. Default: 3
+| parameter | type    | description                               | required | default |
+|-----------|---------|-------------------------------------------|----------|---------|
+| semver    | String  | SemVer version to convert                 | true     |         |
+| zero_pad  | Integer | Zero pad you want for the integer version | false    | 3       |
 
 ## Outputs
 
-### `integer`
+| parameter | type    | description                          | required | default |
+|-----------|---------|--------------------------------------|----------|---------|
+| integer   | Integer | The generated SemVer integer version | true     |         |
 
-The generated integer version.
+## Example:
 
-#### Example:
+With `semver: 2.3.4-alpha.5` and `zero_pad: 3`, you will get **002003004100005** *(002.003.004.100.005)*
 
-With `semver: 2.3.4-alpha.5` and `zero_pad: 3`, you will get **002003004001005** *(002.003.004.001.005)*
-
-
-## Example usage
+## Usage
 
 ```yml
 jobs:
