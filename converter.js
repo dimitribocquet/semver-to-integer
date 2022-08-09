@@ -27,6 +27,7 @@ const converter = function (semver, zero_pad = 3) {
     preReleaseBuild: null,
   }
 
+  const isPreRelease = semver.includes('-');
   const preVersionExploded = semver.split('-');
   const stableVersionExploded = preVersionExploded[0].split('.');
 
@@ -38,12 +39,13 @@ const converter = function (semver, zero_pad = 3) {
   finalVersionsElements.minor = parseInt(stableVersionExploded[1]);
   finalVersionsElements.patch = parseInt(stableVersionExploded[2]);
 
-  if(preVersionExploded.length > 1) {
+  if(isPreRelease === true) {
     const preReleaseVersionExploded = preVersionExploded[1].split('.');
 
     if(preReleaseVersionExploded.length > 1) {
       finalVersionsElements.preReleaseName = preReleaseVersionExploded[0];
-      finalVersionsElements.preReleaseBuild = parseInt(preReleaseVersionExploded[1]);
+      finalVersionsElements.preReleaseBuild = preReleaseVersionExploded[1]
+      // finalVersionsElements.preReleaseBuild = onlyNumbers(preReleaseVersionExploded[1]) ? parseInt(preReleaseVersionExploded[1]) : preReleaseVersionExploded[1];
     } else {
       if(onlyNumbers(preReleaseVersionExploded[0])) {
         finalVersionsElements.preReleaseBuild = parseInt(preReleaseVersionExploded[0]);
@@ -61,8 +63,14 @@ const converter = function (semver, zero_pad = 3) {
     major: String(finalVersionsElements.major).padStart(zero_pad, '0'),
     minor: String(finalVersionsElements.minor).padStart(zero_pad, '0'),
     patch: String(finalVersionsElements.patch).padStart(zero_pad, '0'),
-    preReleaseName: finalVersionsElements.preReleaseName ? convertPreReleaseNameToPaddedNumber(finalVersionsElements.preReleaseName, zero_pad) : parseInt(Array(zero_pad).fill(9).join('')),
-    preReleaseBuild: onlyNumbers(finalVersionsElements.preReleaseBuild) ? String(finalVersionsElements.preReleaseBuild).padStart(zero_pad, '0') : parseInt(Array(zero_pad).fill(9).join('')),
+  }
+
+  if(isPreRelease === true) {
+    finalVersions.preReleaseName = convertPreReleaseNameToPaddedNumber(finalVersionsElements.preReleaseName, zero_pad)
+    finalVersions.preReleaseBuild = convertPreReleaseNameToPaddedNumber(finalVersionsElements.preReleaseBuild, zero_pad)
+  } else {
+    finalVersions.preReleaseName = parseInt(Array(zero_pad).fill(9).join(''));
+    finalVersions.preReleaseBuild = parseInt(Array(zero_pad).fill(9).join(''));
   }
 
   console.debug('finalVersions');
@@ -82,6 +90,10 @@ function onlyNumbers(str) {
 }
 
 function convertPreReleaseNameToPaddedNumber(preReleaseName, zero_pad) {
+  if(onlyNumbers(preReleaseName)) {
+    return String(preReleaseName).padStart(zero_pad, '0');
+  }
+
   let preReleaseNumber = 0;
   switch (preReleaseName) {
     case 'alpha':
@@ -98,7 +110,7 @@ function convertPreReleaseNameToPaddedNumber(preReleaseName, zero_pad) {
       break;
   }
 
-  return String(preReleaseNumber).padStart(zero_pad, '0'); // '0001' instead of '1'
+  return String(preReleaseNumber).padEnd(zero_pad, '0'); // '0001' instead of '1'
 }
 
 module.exports = converter;
