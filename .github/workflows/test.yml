@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - run: yarn ci
+    - run: yarn install --frozen-lockfile
     - run: yarn test
 
   # test action works running from the graph
@@ -21,5 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./
+      id: semver
       with:
-        milliseconds: 1000
+        semver: '2.3.4-alpha.5'
+        zero_pad: 3
+    - run: echo "Output is ${{ steps.semver.outputs.integer }}"
