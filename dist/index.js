@@ -68,7 +68,7 @@ const converter = function (semver, zero_pad = 3) {
     minor: String(finalVersionsElements.minor).padStart(zero_pad, '0'),
     patch: String(finalVersionsElements.patch).padStart(zero_pad, '0'),
     preReleaseName: finalVersionsElements.preReleaseName ? convertPreReleaseNameToPaddedNumber(finalVersionsElements.preReleaseName, zero_pad) : parseInt(Array(zero_pad).fill(9).join('')),
-    preReleaseBuild: finalVersionsElements.preReleaseBuild ? String(finalVersionsElements.preReleaseBuild).padStart(zero_pad, '0') : parseInt(Array(zero_pad).fill(9).join('')),
+    preReleaseBuild: onlyNumbers(finalVersionsElements.preReleaseBuild) ? String(finalVersionsElements.preReleaseBuild).padStart(zero_pad, '0') : parseInt(Array(zero_pad).fill(9).join('')),
   }
 
   console.debug('finalVersions');
