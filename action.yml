@@ -1,5 +1,8 @@
 name: 'SemVer to Integer'
 description: 'Converts SemVer version to integer version'
+branding:
+  icon: 'printer'
+  color: 'green'
 inputs:
   semver:
     description: 'SemVer version to convert'
