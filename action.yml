@@ -15,4 +15,4 @@ outputs:
     description: 'The generated integer version'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'

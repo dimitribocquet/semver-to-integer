@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: ./dist/
+    - uses: ./
       id: semver
       with:
         semver: '2.3.4-alpha.5'
